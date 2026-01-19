@@ -4,8 +4,13 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Menu, Code2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { cn } from '@/lib/utils';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 
 const navLinks = [
   { name: 'Home', href: '#home' },
@@ -50,7 +55,15 @@ export default function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
-              <Link href="#home" className="flex items-center" onClick={() => setSheetOpen(false)}>
+              <SheetTitle className="sr-only">Menu</SheetTitle>
+              <SheetDescription className="sr-only">
+                A list of links to navigate the site.
+              </SheetDescription>
+              <Link
+                href="#home"
+                className="flex items-center"
+                onClick={() => setSheetOpen(false)}
+              >
                 <Code2 className="h-6 w-6 text-primary" />
                 <span className="ml-2 font-bold">Bablu Devs</span>
               </Link>
