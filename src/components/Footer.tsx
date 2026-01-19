@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="flex items-center gap-2">
           <Code2 className="h-5 w-5 text-primary" />
           <p className="text-sm text-foreground/80">
-            &copy; {year} Bablu Devs. All rights reserved.
+            &copy; {year} MD.BABLU. All rights reserved.
           </p>
         </div>
         <nav className="flex flex-wrap justify-center gap-4 text-sm font-medium text-foreground/60 sm:gap-6">

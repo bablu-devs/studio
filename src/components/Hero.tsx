@@ -31,10 +31,10 @@ export default function Hero() {
           </div>
           <div className="space-y-4 text-center md:text-left">
             <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
-              Bablu Devs
+              MD.BABLU
             </h1>
             <h2 className="text-xl font-medium text-primary md:text-2xl">
-              Flutter Web Developer | <span className="bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">Vibe Coder</span>
+              Flutter Web Developer | <span className="bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent">Vibe Coder</span>
             </h2>
             <p className="mx-auto max-w-[600px] text-foreground/80 md:mx-0 md:text-xl/relaxed">
               Building modern, secure & scalable Flutter websites.
