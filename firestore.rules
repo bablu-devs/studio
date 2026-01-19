@@ -1,0 +1,154 @@
+/**
+ * @file firestore.rules
+ * @description Security rules for a developer portfolio application.
+ *
+ * @section Core Philosophy
+ * This ruleset enforces a strict user-ownership model. All user-generated content,
+ * including profiles, services, client types, and contact info, is stored within
+ * a private data tree accessible only to the authenticated owner. This prevents
+ * data leakage between users and unauthorized access. A separate top-level collection
+ * for contact form messages is configured as a "write-only" mailbox, allowing public
+ * submissions while preventing any client-side reads.
+ *
+ * @section Data Structure
+ * Data is primarily organized hierarchically under `/users/{userId}`. This path-based
+ * ownership is the cornerstone of the security model. For example, a user's services
+ * are located at `/users/{userId}/userProfiles/{userProfileId}/services/{serviceId}`.
+ * This structure makes ownership checks simple and performant.
+ *
+ * @section Key Security Decisions
+ * - User Data Isolation: All reads and writes to paths under `/users/{userId}` are
+ *   strictly limited to the user whose UID matches `{userId}`.
+ * - No User Enumeration: Listing the root `/users` collection is disallowed to
+ *   prevent attackers from discovering user IDs.
+ * - Public Write-Only Mailbox: The `/messages` collection allows anyone (even
+ *   unauthenticated visitors) to submit a message via a contact form, but denies
+ *   all read, update, and delete operations from the client. This is a secure
+ *   pattern for data that should be processed by a backend service (e.g., Cloud Function).
+ * - Relational Integrity: On document creation, rules ensure that foreign key
+ *   references (like `userProfileId` on a Service) correctly point to their
+ *   parent document in the path, maintaining data consistency. These keys are
+ *   enforced as immutable on update.
+ *
+ * @section Denormalization for Authorization
+ * While path-based security is the primary mechanism, this ruleset also validates
+ * denormalized fields critical for relational integrity. For example, when a `Service`
+ * is created under a `UserProfile`, the rule verifies that the `service.userProfileId`
+ * field matches the `userProfileId` from the document path. This ensures data
+ * consistency without requiring costly `get()` calls in other contexts.
+ *
+ * @section Structural Segregation
+ * User-private data (`/users/{userId}`) is structurally separate from public-write
+ * data (`/messages`). This clear separation results in simpler, more secure, and
+ * more performant rules for each collection, as they don't have to handle mixed
+ * security postures.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions for reusable logic
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Checks for ownership and ensures the document exists before an update or delete.
+    function isExistingOwner(userId) {
+      return isOwner(userId) && resource != null;
+    }
+
+    /**
+     * @description Disallows any direct interaction with the root `users` collection.
+     * @path /users/{userId}
+     * @allow None. All operations are denied.
+     * @deny A user attempting to list all users in the database.
+     * @principle Prevents user enumeration and protects the root collection from writes.
+     */
+    match /users/{userId} {
+      allow get: if false;
+      allow list: if false;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Secures a user's own profile document.
+     * @path /users/{userId}/userProfiles/{userProfileId}
+     * @allow An authenticated user (auth.uid=123) creating their own profile at `/users/123/userProfiles/abc` with `id: "abc"`.
+     * @deny A user (auth.uid=456) trying to read or write to `/users/123/userProfiles/abc`.
+     * @principle Enforces strict document ownership and validates relational integrity between the document path and its internal ID.
+     */
+    match /users/{userId}/userProfiles/{userProfileId} {
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && request.resource.data.id == userProfileId;
+      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Secures the services subcollection for a user profile.
+     * @path /users/{userId}/userProfiles/{userProfileId}/services/{serviceId}
+     * @allow An authenticated user (auth.uid=123) creating a new service for their profile at `/users/123/userProfiles/abc/services/xyz` with `userProfileId: "abc"`.
+     * @deny A user (auth.uid=456) trying to update a service under `/users/123/...`.
+     * @principle Restricts access to a user's own data tree and ensures foreign keys (`userProfileId`) are correctly set and immutable.
+     */
+    match /users/{userId}/userProfiles/{userProfileId}/services/{serviceId} {
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && request.resource.data.userProfileId == userProfileId;
+      allow update: if isExistingOwner(userId) && request.resource.data.userProfileId == resource.data.userProfileId;
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Secures the client types subcollection for a user profile.
+     * @path /users/{userId}/userProfiles/{userProfileId}/clientTypes/{clientTypeId}
+     * @allow An authenticated user (auth.uid=123) deleting their own client type at `/users/123/userProfiles/abc/clientTypes/xyz`.
+     * @deny A user (auth.uid=456) trying to list client types under `/users/123/...`.
+     * @principle Restricts access to a user's own data tree and ensures foreign keys (`userProfileId`) are correctly set and immutable.
+     */
+    match /users/{userId}/userProfiles/{userProfileId}/clientTypes/{clientTypeId} {
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && request.resource.data.userProfileId == userProfileId;
+      allow update: if isExistingOwner(userId) && request.resource.data.userProfileId == resource.data.userProfileId;
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Secures the contact info subcollection for a user profile.
+     * @path /users/{userId}/userProfiles/{userProfileId}/contactInfo/{contactInfoId}
+     * @allow An authenticated user (auth.uid=123) updating their own contact info at `/users/123/userProfiles/abc/contactInfo/xyz`.
+     * @deny A user (auth.uid=123) trying to create contact info with an incorrect `userProfileId`.
+     * @principle Restricts access to a user's own data tree and ensures foreign keys (`userProfileId`) are correctly set and immutable.
+     */
+    match /users/{userId}/userProfiles/{userProfileId}/contactInfo/{contactInfoId} {
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && request.resource.data.userProfileId == userProfileId;
+      allow update: if isExistingOwner(userId) && request.resource.data.userProfileId == resource.data.userProfileId;
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description A public "write-only" collection for contact form messages.
+     * @path /messages/{messageId}
+     * @allow Any user, even unauthenticated, creating (submitting) a new message.
+     * @deny Any user attempting to read, list, update, or delete any message.
+     * @principle Implements a secure "mailbox" pattern where clients can only drop off data, not inspect the contents.
+     */
+    match /messages/{messageId} {
+      allow get: if false;
+      allow list: if false;
+      allow create: if true;
+      allow update: if false;
+      allow delete: if false;
+    }
+  }
+}

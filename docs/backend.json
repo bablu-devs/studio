@@ -1,0 +1,281 @@
+{
+  "entities": {
+    "UserProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserProfile",
+      "type": "object",
+      "description": "Represents the profile of the developer.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the UserProfile entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the developer."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the developer (e.g., Flutter Web Developer)."
+        },
+        "introduction": {
+          "type": "string",
+          "description": "A brief introduction of the developer."
+        },
+        "profilePictureUrl": {
+          "type": "string",
+          "description": "URL of the profile picture.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "title",
+        "introduction"
+      ]
+    },
+    "Service": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Service",
+      "type": "object",
+      "description": "Represents a service offered by the developer.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Service entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the service (e.g., Flutter Web Development)."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the service."
+        },
+        "userProfileId": {
+          "type": "string",
+          "description": "Reference to UserProfile. (Relationship: UserProfile 1:N Service)"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "userProfileId"
+      ]
+    },
+    "ClientType": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ClientType",
+      "type": "object",
+      "description": "Represents a type of client the developer builds for.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the ClientType entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the client type (e.g., Schools)."
+        },
+        "userProfileId": {
+          "type": "string",
+          "description": "Reference to UserProfile. (Relationship: UserProfile 1:N ClientType)"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "userProfileId"
+      ]
+    },
+    "ContactInfo": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ContactInfo",
+      "type": "object",
+      "description": "Represents the contact information of the developer.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the ContactInfo entity."
+        },
+        "phone": {
+          "type": "string",
+          "description": "The phone number of the developer."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the developer.",
+          "format": "email"
+        },
+        "userProfileId": {
+          "type": "string",
+          "description": "Reference to UserProfile. (Relationship: UserProfile 1:1 ContactInfo)"
+        }
+      },
+      "required": [
+        "id",
+        "phone",
+        "email",
+        "userProfileId"
+      ]
+    },
+    "Message": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Message",
+      "type": "object",
+      "description": "Represents a message sent through the contact form.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Message entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the message sender."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the message sender.",
+          "format": "email"
+        },
+        "message": {
+          "type": "string",
+          "description": "The content of the message."
+        },
+        "sentAt": {
+          "type": "string",
+          "description": "The date and time the message was sent.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email",
+        "message",
+        "sentAt"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}/userProfiles/{userProfileId}",
+        "definition": {
+          "entityName": "UserProfile",
+          "schema": {
+            "$ref": "#/backend/entities/UserProfile"
+          },
+          "description": "Stores user profile information.  The 'userId' parameter ensures only the authenticated user can access their own profile. Includes denormalized 'userId' parameter for authorization independence.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "userProfileId",
+              "description": "The unique identifier for the user profile."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/userProfiles/{userProfileId}/services/{serviceId}",
+        "definition": {
+          "entityName": "Service",
+          "schema": {
+            "$ref": "#/backend/entities/Service"
+          },
+          "description": "Stores services offered by a user. Includes denormalized 'userProfileId' parameter for authorization independence.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "userProfileId",
+              "description": "The unique identifier for the user profile."
+            },
+            {
+              "name": "serviceId",
+              "description": "The unique identifier for the service."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/userProfiles/{userProfileId}/clientTypes/{clientTypeId}",
+        "definition": {
+          "entityName": "ClientType",
+          "schema": {
+            "$ref": "#/backend/entities/ClientType"
+          },
+          "description": "Stores client types for a user. Includes denormalized 'userProfileId' parameter for authorization independence.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "userProfileId",
+              "description": "The unique identifier for the user profile."
+            },
+            {
+              "name": "clientTypeId",
+              "description": "The unique identifier for the client type."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/userProfiles/{userProfileId}/contactInfo/{contactInfoId}",
+        "definition": {
+          "entityName": "ContactInfo",
+          "schema": {
+            "$ref": "#/backend/entities/ContactInfo"
+          },
+          "description": "Stores contact information for a user. Includes denormalized 'userProfileId' parameter for authorization independence.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "userProfileId",
+              "description": "The unique identifier for the user profile."
+            },
+            {
+              "name": "contactInfoId",
+              "description": "The unique identifier for the contact info."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/messages/{messageId}",
+        "definition": {
+          "entityName": "Message",
+          "schema": {
+            "$ref": "#/backend/entities/Message"
+          },
+          "description": "Stores messages sent through the contact form. No user-specific ownership is assumed; all messages are stored at the root level.",
+          "params": [
+            {
+              "name": "messageId",
+              "description": "The unique identifier for the message."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to be secure, scalable, and easily debuggable, following the core design principles and strategy mandates. It emphasizes authorization independence by avoiding hierarchical `get()` calls and denormalizing authorization data. The structure also promotes clarity of intent through structural segregation and explicit state modeling.\n\nThe primary strategy is Authorization Independence via Denormalization. For instance, the `Service`, `ClientType`, and `ContactInfo` collections, which are subcollections logically owned by a `UserProfile`, include the `userProfileId` field. This denormalization allows security rules to validate ownership without needing to perform a `get()` operation on the parent `UserProfile` document.\n\nStructural Segregation is used to ensure that each collection has a homogeneous security posture. User-owned data (UserProfile and associated subcollections like Services, ClientTypes, and ContactInfo) are stored under the `/users/{userId}` path, ensuring that all documents within that path are private to the user.\n\nAccess Modeling is implemented using Path-Based Ownership. The `/users/{userId}/userProfiles/{userProfileId}` path ensures that each user can only access their own profile. The 1:N relationships (UserProfile:Service, UserProfile:ClientType) are also represented using hierarchical paths, such as `/users/{userId}/userProfiles/{userProfileId}/services/{serviceId}`. This approach provides clear ownership and simplifies security rules.\n\nQAPs (Rules are not Filters) is supported by using structural segregation and denormalization. Listing services, client types, or contact info under a specific user profile can be done securely without filtering based on user ID within the rules.\n\nData Clarity and Predictability are maintained through explicit state modeling (though the entities in this design don't have explicit state beyond their existence), predictable schema, and radical consistency in naming conventions. The `userProfileId` field is consistently used to denote ownership across related collections."
+  }
+}
