@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Github, Instagram, Facebook, Code2 } from 'lucide-react';
+import { Github, Instagram, Facebook, CodeXml } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Footer() {
@@ -9,9 +9,9 @@ export default function Footer() {
     <footer className="border-t border-border/40 bg-background">
       <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-4 py-6 sm:flex-row md:px-6">
         <div className="flex items-center gap-2">
-          <Code2 className="h-5 w-5 text-primary" />
+          <CodeXml className="h-5 w-5 text-primary" />
           <p className="text-sm text-foreground/80">
-            &copy; {year} MD.BABLU. All rights reserved.
+            &copy; {year} Bablu Devs. All rights reserved.
           </p>
         </div>
         <nav className="flex flex-wrap justify-center gap-4 text-sm font-medium text-foreground/60 sm:gap-6">

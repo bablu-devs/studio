@@ -28,7 +28,7 @@ export default function Header() {
         <div className="mr-4 flex items-center">
           <Link href="#home" className="mr-6 flex items-center space-x-2">
             <Code2 className="h-6 w-6 text-primary" />
-            <span className="font-bold">MD.BABLU</span>
+            <span className="font-bold">Bablu Devs</span>
           </Link>
           <nav className="hidden gap-6 text-sm md:flex">
             {navLinks.map((link) => (
@@ -65,7 +65,7 @@ export default function Header() {
                 onClick={() => setSheetOpen(false)}
               >
                 <Code2 className="h-6 w-6 text-primary" />
-                <span className="ml-2 font-bold">MD.BABLU</span>
+                <span className="ml-2 font-bold">Bablu Devs</span>
               </Link>
               <div className="mt-8 flex flex-col gap-4">
                 {navLinks.map((link) => (

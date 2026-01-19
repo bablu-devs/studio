@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { FirebaseClientProvider } from '@/firebase';
 
 export const metadata: Metadata = {
-  title: 'MD.BABLU | Flutter Web Developer',
+  title: 'Bablu Devs | Flutter Web Developer',
   description: 'Flutter Web Developer | Vibe Coder. Building modern, secure & scalable Flutter websites.',
 };
 
