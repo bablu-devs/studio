@@ -96,7 +96,7 @@ export default function Contact() {
                           <div className="relative">
                             <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                             <FormControl>
-                              <Input placeholder="John Doe" {...field} className="pl-10" />
+                              <Input placeholder="Amit Kumar" {...field} className="pl-10" />
                             </FormControl>
                           </div>
                           <FormMessage />
@@ -112,7 +112,7 @@ export default function Contact() {
                           <div className="relative">
                              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                             <FormControl>
-                              <Input placeholder="john.doe@example.com" {...field} className="pl-10" />
+                              <Input placeholder="amit.kumar@example.com" {...field} className="pl-10" />
                             </FormControl>
                           </div>
                           <FormMessage />

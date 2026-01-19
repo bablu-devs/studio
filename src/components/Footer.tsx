@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Github, Linkedin, Dribbble, Code2 } from 'lucide-react';
+import { Github, Instagram, Facebook, Code2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Footer() {
@@ -14,6 +14,17 @@ export default function Footer() {
             &copy; {year} Bablu Devs. All rights reserved.
           </p>
         </div>
+        <nav className="flex flex-wrap justify-center gap-4 text-sm font-medium text-foreground/60 sm:gap-6">
+          <Link href="#" className="transition-colors hover:text-foreground">
+            About
+          </Link>
+          <Link href="#" className="transition-colors hover:text-foreground">
+            Privacy Policy
+          </Link>
+          <Link href="#" className="transition-colors hover:text-foreground">
+            Terms of Service
+          </Link>
+        </nav>
         <div className="flex items-center gap-2">
           <Button asChild variant="ghost" size="icon">
             <Link href="https://github.com" target="_blank" aria-label="GitHub">
@@ -21,13 +32,13 @@ export default function Footer() {
             </Link>
           </Button>
           <Button asChild variant="ghost" size="icon">
-            <Link href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
-              <Linkedin className="h-5 w-5 text-foreground/60 transition-colors hover:text-foreground" />
+            <Link href="https://instagram.com" target="_blank" aria-label="Instagram">
+              <Instagram className="h-5 w-5 text-foreground/60 transition-colors hover:text-foreground" />
             </Link>
           </Button>
           <Button asChild variant="ghost" size="icon">
-            <Link href="https://dribbble.com" target="_blank" aria-label="Dribbble">
-              <Dribbble className="h-5 w-5 text-foreground/60 transition-colors hover:text-foreground" />
+            <Link href="https://facebook.com" target="_blank" aria-label="Facebook">
+              <Facebook className="h-5 w-5 text-foreground/60 transition-colors hover:text-foreground" />
             </Link>
           </Button>
         </div>
