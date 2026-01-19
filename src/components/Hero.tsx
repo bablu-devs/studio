@@ -10,18 +10,18 @@ export default function Hero() {
   return (
     <section id="home" className="relative w-full py-20 md:py-32">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="grid items-center gap-12 md:grid-cols-2">
-          <div className="group flex justify-center">
+        <div className="flex flex-col items-center gap-12 md:flex-row md:items-center md:gap-16 lg:gap-24">
+          <div className="group flex-shrink-0">
             <div className="relative h-48 w-48 md:h-64 md:w-64">
               {profileImage && (
                 <Image
                   src={profileImage.imageUrl}
                   alt="Bablu Devs profile picture"
-                  width={256}
-                  height={256}
+                  fill
                   className="rounded-full object-cover shadow-2xl ring-8 ring-primary/20 transition-all duration-300 group-hover:scale-105 group-hover:ring-primary/40"
                   data-ai-hint={profileImage.imageHint}
                   priority
+                  sizes="(max-width: 768px) 192px, 256px"
                 />
               )}
               <div className="absolute -bottom-4 -right-4 rounded-full bg-primary p-3 text-primary-foreground shadow-lg">
