@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, Code2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -17,10 +17,16 @@ const navLinks = [
   { name: 'Services', href: '/#services' },
   { name: 'Clients', href: '/#clients' },
   { name: 'Contact', href: '/#contact' },
+  { name: 'About', href: '/about' },
 ];
 
 export default function Header() {
   const [isSheetOpen, setSheetOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -47,40 +53,42 @@ export default function Header() {
           <Button asChild className="hidden md:inline-flex rounded-full">
             <Link href="/#contact">Let's Talk</Link>
           </Button>
-          <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
-            <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="md:hidden">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Open Menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right">
-              <SheetTitle className="sr-only">Menu</SheetTitle>
-              <SheetDescription className="sr-only">
-                A list of links to navigate the site.
-              </SheetDescription>
-              <Link
-                href="/"
-                className="flex items-center"
-                onClick={() => setSheetOpen(false)}
-              >
-                <Code2 className="h-6 w-6 text-primary" />
-                <span className="ml-2 font-bold">Bablu Devs</span>
-              </Link>
-              <div className="mt-8 flex flex-col gap-4">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setSheetOpen(false)}
-                    className="rounded-md p-2 font-medium hover:bg-accent"
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-              </div>
-            </SheetContent>
-          </Sheet>
+          {isMounted && (
+            <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
+              <SheetTrigger asChild>
+                <Button variant="outline" size="icon" className="md:hidden">
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Open Menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right">
+                <SheetTitle className="sr-only">Menu</SheetTitle>
+                <SheetDescription className="sr-only">
+                  A list of links to navigate the site.
+                </SheetDescription>
+                <Link
+                  href="/"
+                  className="flex items-center"
+                  onClick={() => setSheetOpen(false)}
+                >
+                  <Code2 className="h-6 w-6 text-primary" />
+                  <span className="ml-2 font-bold">Bablu Devs</span>
+                </Link>
+                <div className="mt-8 flex flex-col gap-4">
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.name}
+                      href={link.href}
+                      onClick={() => setSheetOpen(false)}
+                      className="rounded-md p-2 font-medium hover:bg-accent"
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+                </div>
+              </SheetContent>
+            </Sheet>
+          )}
         </div>
       </div>
     </header>
