@@ -38,9 +38,9 @@ export default function Clients() {
         </div>
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {clientTypes.map((client, index) => (
-            <Card key={index} className="group overflow-hidden rounded-lg border-2 border-transparent text-center transition-all duration-300 hover:border-primary hover:shadow-2xl">
+            <Card key={index} className="group overflow-hidden rounded-lg border-2 border-transparent text-center transition-all duration-500 ease-in-out hover:border-primary hover:shadow-2xl">
               <CardHeader className="items-center p-8">
-                <div className="mb-4 rounded-full bg-accent p-5 transition-transform duration-300 group-hover:scale-110">
+                <div className="mb-4 rounded-full bg-accent p-5 transition-transform duration-500 ease-in-out group-hover:scale-110">
                   {client.icon}
                 </div>
                 <CardTitle className="text-xl font-semibold">{client.title}</CardTitle>

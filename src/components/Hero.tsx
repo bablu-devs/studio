@@ -21,10 +21,11 @@ export default function Hero() {
                   height={256}
                   className="rounded-full object-cover shadow-2xl ring-4 ring-primary/20"
                   data-ai-hint={profileImage.imageHint}
+                  priority
                 />
               )}
               <div className="absolute -bottom-4 -right-4 rounded-full bg-primary p-3 text-primary-foreground shadow-lg">
-                <div className="h-8 w-8 animate-spin-slow [animation-duration:5s]">👋</div>
+                <div className="origin-[70%_70%] animate-wave text-4xl">👋</div>
               </div>
             </div>
           </div>
