@@ -13,10 +13,10 @@ import {
 } from '@/components/ui/sheet';
 
 const navLinks = [
-  { name: 'Home', href: '#home' },
-  { name: 'Services', href: '#services' },
-  { name: 'Clients', href: '#clients' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/#services' },
+  { name: 'Clients', href: '/#clients' },
+  { name: 'Contact', href: '/#contact' },
 ];
 
 export default function Header() {
@@ -26,7 +26,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <div className="mr-4 flex items-center">
-          <Link href="#home" className="mr-6 flex items-center space-x-2">
+          <Link href="/" className="mr-6 flex items-center space-x-2">
             <Code2 className="h-6 w-6 text-primary" />
             <span className="font-bold">Bablu Devs</span>
           </Link>
@@ -45,7 +45,7 @@ export default function Header() {
 
         <div className="flex flex-1 items-center justify-end space-x-2">
           <Button asChild className="hidden md:inline-flex rounded-full">
-            <Link href="#contact">Let's Talk</Link>
+            <Link href="/#contact">Let's Talk</Link>
           </Button>
           <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
             <SheetTrigger asChild>
@@ -60,7 +60,7 @@ export default function Header() {
                 A list of links to navigate the site.
               </SheetDescription>
               <Link
-                href="#home"
+                href="/"
                 className="flex items-center"
                 onClick={() => setSheetOpen(false)}
               >

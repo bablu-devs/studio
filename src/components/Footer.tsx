@@ -15,13 +15,13 @@ export default function Footer() {
           </p>
         </div>
         <nav className="flex flex-wrap justify-center gap-4 text-sm font-medium text-foreground/60 sm:gap-6">
-          <Link href="#" className="transition-colors hover:text-foreground">
+          <Link href="/about" className="transition-colors hover:text-foreground">
             About
           </Link>
-          <Link href="#" className="transition-colors hover:text-foreground">
+          <Link href="/privacy" className="transition-colors hover:text-foreground">
             Privacy Policy
           </Link>
-          <Link href="#" className="transition-colors hover:text-foreground">
+          <Link href="/terms" className="transition-colors hover:text-foreground">
             Terms of Service
           </Link>
         </nav>
