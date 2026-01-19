@@ -11,15 +11,15 @@ export default function Hero() {
     <section id="home" className="relative w-full py-20 md:py-32">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid items-center gap-12 md:grid-cols-2">
-          <div className="flex justify-center">
+          <div className="group flex justify-center">
             <div className="relative h-48 w-48 md:h-64 md:w-64">
               {profileImage && (
                 <Image
                   src={profileImage.imageUrl}
-                  alt={profileImage.description}
+                  alt="Bablu Devs profile picture"
                   width={256}
                   height={256}
-                  className="rounded-full object-cover shadow-2xl ring-8 ring-primary/20"
+                  className="rounded-full object-cover shadow-2xl ring-8 ring-primary/20 transition-all duration-300 group-hover:scale-105 group-hover:ring-primary/40"
                   data-ai-hint={profileImage.imageHint}
                   priority
                 />
