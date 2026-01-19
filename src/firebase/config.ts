@@ -1,8 +1,9 @@
 export const firebaseConfig = {
-  "projectId": "studio-6123005816-2df72",
-  "appId": "1:614945405455:web:fa8dd7f862c6bd03ab417a",
-  "apiKey": "AIzaSyAG6OOXvWVPS3W-FhzSRIx3oFRCtjCauj0",
-  "authDomain": "studio-6123005816-2df72.firebaseapp.com",
-  "measurementId": "",
-  "messagingSenderId": "614945405455"
+  apiKey: "AIzaSyA5SdMsLaHKhq6y7qbgkC2tAltN_JkO85o",
+  authDomain: "babludevapps.firebaseapp.com",
+  projectId: "babludevapps",
+  storageBucket: "babludevapps.firebasestorage.app",
+  messagingSenderId: "1098308161941",
+  appId: "1:1098308161941:web:421df654814097cb62e69c",
+  measurementId: "G-FED3YJK5FQ"
 };

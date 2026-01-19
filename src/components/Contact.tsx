@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Mail, Phone, User, MessageSquare, Send } from 'lucide-react';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -17,8 +18,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { sendContactMessage } from '@/app/actions';
 import { Card, CardContent } from './ui/card';
+import { useFirebase, FirestorePermissionError, errorEmitter } from '@/firebase';
 
 const contactSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -30,6 +31,8 @@ type ContactFormValues = z.infer<typeof contactSchema>;
 
 export default function Contact() {
   const { toast } = useToast();
+  const { firestore } = useFirebase();
+
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -40,14 +43,36 @@ export default function Contact() {
   });
 
   const onSubmit = async (data: ContactFormValues) => {
+    if (!firestore) {
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: 'Firebase is not available. Please try again later.',
+      });
+      return;
+    }
+
     try {
-      await sendContactMessage(data);
+      const messagesCollection = collection(firestore, 'messages');
+      await addDoc(messagesCollection, {
+        ...data,
+        sentAt: serverTimestamp(),
+      });
+
       toast({
         title: 'Message Sent! 🚀',
         description: "Thanks for reaching out. I'll get back to you as soon as possible.",
       });
       form.reset();
     } catch (error) {
+      console.error(error);
+      const contextualError = new FirestorePermissionError({
+        path: 'messages',
+        operation: 'create',
+        requestResourceData: data,
+      });
+      errorEmitter.emit('permission-error', contextualError);
+      
       toast({
         variant: 'destructive',
         title: 'Uh oh! Something went wrong.',
