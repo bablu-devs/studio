@@ -37,13 +37,13 @@ export default function Header() {
 
   return (
     <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'border-b border-white/10 bg-background/80 backdrop-blur-lg' : 'bg-transparent'}`}>
-      <div className="container flex h-20 items-center justify-between">
+      <div className="container mx-auto flex h-20 items-center px-6 md:px-8">
         <Link href="/" className="flex items-center space-x-3">
           <Code2 className="h-7 w-7 text-primary" />
           <span className="font-bold text-lg">Bablu Devs</span>
         </Link>
         
-        <nav className="hidden items-center gap-6 text-sm md:flex">
+        <nav className="ml-auto hidden items-center gap-6 text-sm md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.name}
@@ -53,7 +53,7 @@ export default function Header() {
               {link.name}
             </Link>
           ))}
-          <Button asChild className="rounded-full font-bold bg-gradient-to-r from-primary to-cyan-400 text-primary-foreground transition-opacity hover:opacity-90">
+          <Button asChild className="rounded-full font-bold bg-gradient-to-r from-yellow-400 to-orange-500 text-primary-foreground transition-opacity hover:opacity-90">
             <Link href="/#contact">Let's Talk</Link>
           </Button>
         </nav>
@@ -61,7 +61,7 @@ export default function Header() {
         {isMounted && (
           <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden hover:bg-primary/10">
+              <Button variant="ghost" size="icon" className="md:hidden ml-auto hover:bg-primary/10">
                 <Menu className="h-5 w-5 text-primary" />
                 <span className="sr-only">Open Menu</span>
               </Button>
@@ -69,9 +69,7 @@ export default function Header() {
             <SheetContent side="right" className="bg-background/90 backdrop-blur-xl">
               <SheetHeader>
                 <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
-                <SheetDescription className="sr-only">
-                  A list of navigation links for the site.
-                </SheetDescription>
+                <SheetDescription className="sr-only">A list of navigation links for the site.</SheetDescription>
               </SheetHeader>
               <Link
                 href="/"

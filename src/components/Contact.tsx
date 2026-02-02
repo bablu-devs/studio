@@ -158,7 +158,7 @@ export default function Contact() {
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" className="w-full font-bold bg-gradient-to-r from-primary to-cyan-400 text-primary-foreground transition-opacity hover:opacity-90" size="lg" disabled={form.formState.isSubmitting}>
+                    <Button type="submit" className="w-full font-bold bg-gradient-to-r from-yellow-400 to-orange-500 text-primary-foreground transition-opacity hover:opacity-90" size="lg" disabled={form.formState.isSubmitting}>
                       {form.formState.isSubmitting ? 'Sending...' : <>Send Message <Send className="ml-2 h-4 w-4" /></>}
                     </Button>
                   </form>
