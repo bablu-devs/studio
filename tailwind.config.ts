@@ -101,6 +101,12 @@ export default {
           '0%, 100%': { opacity: '0.7' },
           '50%': { opacity: '1' },
         },
+        'move-random': {
+          '0%, 100%': { transform: 'translate(0, 0)' },
+          '25%': { transform: 'translate(20px, -15px)' },
+          '50%': { transform: 'translate(-15px, 15px)' },
+          '75%': { transform: 'translate(10px, 20px)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',

@@ -6,18 +6,20 @@ type StarProps = {
   top: number;
   left: number;
   size: number;
-  delay: number;
+  twinkleDelay: number;
+  moveDuration: number;
+  moveDelay: number;
 };
 
-const Star = ({ top, left, size, delay }: StarProps) => {
+const Star = ({ top, left, size, twinkleDelay, moveDuration, moveDelay }: StarProps) => {
   const style = {
     top: `${top}%`,
     left: `${left}%`,
     width: `${size}px`,
     height: `${size}px`,
-    animationDelay: `${delay}s`,
+    animation: `twinkle 4s ease-in-out infinite ${twinkleDelay}s, move-random ${moveDuration}s ease-in-out infinite alternate ${moveDelay}s`,
   };
-  return <div className="absolute rounded-full bg-white/80 animate-twinkle" style={style}></div>;
+  return <div className="absolute rounded-full bg-white/80" style={style}></div>;
 };
 
 const Starfield = () => {
@@ -26,12 +28,22 @@ const Starfield = () => {
 
   // Generate stars on client-side only to prevent hydration mismatch
   useEffect(() => {
+    const createStar = (i: number, size: number) => ({
+      key: `s${size}-${i}`,
+      size,
+      top: Math.random() * 100,
+      left: Math.random() * 100,
+      twinkleDelay: Math.random() * 4,
+      moveDuration: 20 + Math.random() * 20, // 20-40s duration
+      moveDelay: Math.random() * 30,
+    });
+    
     const starLayers = [
-      ...Array.from({ length: 60 }).map((_, i) => ({ size: 1, top: Math.random() * 100, left: Math.random() * 100, delay: Math.random() * 4, key: `s1-${i}` })),
-      ...Array.from({ length: 30 }).map((_, i) => ({ size: 2, top: Math.random() * 100, left: Math.random() * 100, delay: Math.random() * 4, key: `s2-${i}` })),
-      ...Array.from({ length: 10 }).map((_, i) => ({ size: 3, top: Math.random() * 100, left: Math.random() * 100, delay: Math.random() * 4, key: `s3-${i}` })),
+      ...Array.from({ length: 60 }).map((_, i) => createStar(i, 1)),
+      ...Array.from({ length: 30 }).map((_, i) => createStar(i, 2)),
+      ...Array.from({ length: 10 }).map((_, i) => createStar(i, 3)),
     ];
-    setStars(starLayers.map(s => <Star key={s.key} size={s.size} top={s.top} left={s.left} delay={s.delay} />));
+    setStars(starLayers.map(s => <Star {...s} />));
   }, []);
 
   // Handle parallax scroll
