@@ -2,14 +2,22 @@
 
 import { useState, useEffect, useRef } from 'react';
 
-const Star = ({ top, left, size }) => {
+type StarProps = {
+  top: number;
+  left: number;
+  size: number;
+  delay: number;
+};
+
+const Star = ({ top, left, size, delay }: StarProps) => {
   const style = {
     top: `${top}%`,
     left: `${left}%`,
     width: `${size}px`,
     height: `${size}px`,
+    animationDelay: `${delay}s`,
   };
-  return <div className="absolute rounded-full bg-white/80" style={style}></div>;
+  return <div className="absolute rounded-full bg-white/80 animate-twinkle" style={style}></div>;
 };
 
 const Starfield = () => {
@@ -19,11 +27,11 @@ const Starfield = () => {
   // Generate stars on client-side only to prevent hydration mismatch
   useEffect(() => {
     const starLayers = [
-      ...Array.from({ length: 60 }).map((_, i) => ({ size: 1, top: Math.random() * 100, left: Math.random() * 100, key: `s1-${i}` })),
-      ...Array.from({ length: 30 }).map((_, i) => ({ size: 2, top: Math.random() * 100, left: Math.random() * 100, key: `s2-${i}` })),
-      ...Array.from({ length: 10 }).map((_, i) => ({ size: 3, top: Math.random() * 100, left: Math.random() * 100, key: `s3-${i}` })),
+      ...Array.from({ length: 60 }).map((_, i) => ({ size: 1, top: Math.random() * 100, left: Math.random() * 100, delay: Math.random() * 4, key: `s1-${i}` })),
+      ...Array.from({ length: 30 }).map((_, i) => ({ size: 2, top: Math.random() * 100, left: Math.random() * 100, delay: Math.random() * 4, key: `s2-${i}` })),
+      ...Array.from({ length: 10 }).map((_, i) => ({ size: 3, top: Math.random() * 100, left: Math.random() * 100, delay: Math.random() * 4, key: `s3-${i}` })),
     ];
-    setStars(starLayers.map(s => <Star key={s.key} size={s.size} top={s.top} left={s.left} />));
+    setStars(starLayers.map(s => <Star key={s.key} size={s.size} top={s.top} left={s.left} delay={s.delay} />));
   }, []);
 
   // Handle parallax scroll
