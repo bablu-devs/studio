@@ -10,7 +10,7 @@ export default function ContactInfo() {
             Contact Information
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-foreground/70 md:text-xl">
-            Feel free to reach out. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+            I'm always open to discussing new projects, creative ideas, or opportunities.
           </p>
         </div>
         <Card className="mx-auto max-w-3xl border-white/10 bg-card/80 p-8 backdrop-blur-sm animate-in fade-in slide-in-from-bottom-12 duration-700 ease-in-out">
@@ -21,7 +21,7 @@ export default function ContactInfo() {
               </div>
               <div>
                 <h3 className="font-headline text-2xl font-bold">Phone</h3>
-                <a href="tel:+916206168057" className="text-lg text-foreground/80 transition-colors hover:text-primary">
+                <a href="tel:+916206168057" className="text-base text-foreground/80 transition-colors hover:text-primary">
                   +91 6206168057
                 </a>
               </div>
@@ -32,7 +32,7 @@ export default function ContactInfo() {
               </div>
               <div>
                 <h3 className="font-headline text-2xl font-bold">Email</h3>
-                <a href="mailto:bablubabu564@gmail.com" className="text-lg text-foreground/80 transition-colors hover:text-primary">
+                <a href="mailto:bablubabu564@gmail.com" className="text-base text-foreground/80 transition-colors hover:text-primary">
                   bablubabu564@gmail.com
                 </a>
               </div>
