@@ -11,8 +11,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['Poppins', 'sans-serif'],
-        headline: ['Poppins', 'sans-serif'],
-        code: ['monospace'],
+        headline: ['Anybody', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -98,11 +97,16 @@ export default {
           '60%': { transform: 'rotate(0.0deg)' },
           '100%': { transform: 'rotate(0.0deg)' },
         },
+        'star-field': {
+          'from': { transform: 'translateY(0)' },
+          'to': { transform: 'translateY(-10000px)' },
+        }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'wave': 'wave 2.5s infinite',
+        'star-field': 'star-field 200s linear infinite',
       },
     },
   },

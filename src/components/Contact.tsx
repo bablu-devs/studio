@@ -54,9 +54,23 @@ export default function Contact() {
 
     try {
       const messagesCollection = collection(firestore, 'messages');
-      await addDoc(messagesCollection, {
+      addDoc(messagesCollection, {
         ...data,
         sentAt: serverTimestamp(),
+      }).catch(error => {
+        console.error(error);
+        const contextualError = new FirestorePermissionError({
+          path: 'messages',
+          operation: 'create',
+          requestResourceData: data,
+        });
+        errorEmitter.emit('permission-error', contextualError);
+        
+        toast({
+          variant: 'destructive',
+          title: 'Uh oh! Something went wrong.',
+          description: 'There was a problem sending your message. Please try again.',
+        });
       });
 
       toast({
@@ -65,45 +79,38 @@ export default function Contact() {
       });
       form.reset();
     } catch (error) {
-      console.error(error);
-      const contextualError = new FirestorePermissionError({
-        path: 'messages',
-        operation: 'create',
-        requestResourceData: data,
-      });
-      errorEmitter.emit('permission-error', contextualError);
-      
-      toast({
-        variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
-        description: 'There was a problem sending your message. Please try again.',
-      });
+        console.error('Unexpected error during form submission setup:', error);
+        toast({
+          variant: 'destructive',
+          title: 'Uh oh! An unexpected error occurred.',
+          description: 'Please try again later.',
+        });
     }
   };
 
   return (
-    <section id="contact" className="bg-accent/50 py-20 md:py-32">
+    <section id="contact" className="bg-transparent">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="mb-12 text-center">
-          <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+        <div className="mb-16 text-center">
+          <h2 className="font-headline text-4xl font-extrabold uppercase tracking-wider md:text-5xl">
             Get In Touch
           </h2>
-          <p className="mx-auto mt-4 max-w-[700px] text-foreground/80 md:text-xl/relaxed">
+          <p className="mx-auto mt-4 max-w-3xl text-lg text-foreground/70 md:text-xl">
             Have a project in mind? Let's create something amazing together.
           </p>
         </div>
-        <Card className="mx-auto max-w-4xl">
+        <Card className="mx-auto max-w-4xl border-white/10 bg-card/80 backdrop-blur-sm">
           <CardContent className="p-0">
             <div className="grid md:grid-cols-2">
-              <div className="space-y-8 bg-primary p-8 text-primary-foreground md:rounded-l-lg">
-                <h3 className="text-2xl font-bold">Contact Information</h3>
-                <p>Fill up the form and I will get back to you within 24 hours.</p>
+              <div className="space-y-8 bg-black/30 p-8 text-foreground md:rounded-l-lg">
+                <h3 className="font-headline text-3xl font-bold">Contact Information</h3>
+                <p className="text-foreground/70">Fill up the form and I will get back to you within 24 hours.</p>
                 <div className="space-y-4">
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 transition-colors hover:text-primary">
                     <Phone className="h-5 w-5" />
                     <a href="tel:+916206168057">+91 6206168057</a>
                   </div>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 transition-colors hover:text-primary">
                     <Mail className="h-5 w-5" />
                     <a href="mailto:bablubabu564@gmail.com">bablubabu564@gmail.com</a>
                   </div>
@@ -117,13 +124,10 @@ export default function Contact() {
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Your Name</FormLabel>
-                          <div className="relative">
-                            <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                            <FormControl>
-                              <Input placeholder="Amit Kumar" {...field} className="pl-10" />
-                            </FormControl>
-                          </div>
+                          <FormLabel className="font-semibold">Your Name</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Amit Kumar" {...field} className="bg-input/50 focus:bg-input" />
+                          </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -133,13 +137,10 @@ export default function Contact() {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Email Address</FormLabel>
-                          <div className="relative">
-                             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                            <FormControl>
-                              <Input placeholder="amit.kumar@example.com" {...field} className="pl-10" />
-                            </FormControl>
-                          </div>
+                          <FormLabel className="font-semibold">Email Address</FormLabel>
+                          <FormControl>
+                            <Input placeholder="amit.kumar@example.com" {...field} className="bg-input/50 focus:bg-input" />
+                          </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -149,18 +150,15 @@ export default function Contact() {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Your Message</FormLabel>
-                          <div className="relative">
-                            <MessageSquare className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <FormControl>
-                              <Textarea placeholder="Tell me about your project..." {...field} className="min-h-[120px] pl-10" />
-                            </FormControl>
-                          </div>
+                          <FormLabel className="font-semibold">Your Message</FormLabel>
+                          <FormControl>
+                            <Textarea placeholder="Tell me about your project..." {...field} className="min-h-[120px] bg-input/50 focus:bg-input" />
+                          </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
+                    <Button type="submit" className="w-full font-bold" size="lg" disabled={form.formState.isSubmitting}>
                       {form.formState.isSubmitting ? 'Sending...' : <>Send Message <Send className="ml-2 h-4 w-4" /></>}
                     </Button>
                   </form>

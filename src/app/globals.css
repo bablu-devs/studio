@@ -4,14 +4,14 @@
 
 @layer base {
   :root {
-    --background: 222 47% 11%;
+    --background: 224 71% 4%;
     --foreground: 210 40% 98%;
     --card: 222 47% 11%;
     --card-foreground: 210 40% 98%;
     --popover: 222 47% 11%;
     --popover-foreground: 210 40% 98%;
-    --primary: 217 91% 60%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 180 95% 50%;
+    --primary-foreground: 224 71% 4%;
     --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217 33% 17%;
@@ -22,8 +22,8 @@
     --destructive-foreground: 210 40% 98%;
     --border: 217 33% 17%;
     --input: 217 33% 17%;
-    --ring: 217 91% 60%;
-    --radius: 0.5rem;
+    --ring: 180 95% 50%;
+    --radius: 0.8rem;
 
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
@@ -33,23 +33,23 @@
     
     --sidebar-background: 222 47% 11%;
     --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 217 91% 60%;
-    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-primary: 180 95% 50%;
+    --sidebar-primary-foreground: 224 71% 4%;
     --sidebar-accent: 217 33% 17%;
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 217 33% 17%;
-    --sidebar-ring: 217 91% 60%;
+    --sidebar-ring: 180 95% 50%;
   }
 
   .dark {
-    --background: 222 47% 11%;
+    --background: 224 71% 4%;
     --foreground: 210 40% 98%;
     --card: 222 47% 11%;
     --card-foreground: 210 40% 98%;
     --popover: 222 47% 11%;
     --popover-foreground: 210 40% 98%;
-    --primary: 217 91% 60%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 180 95% 50%;
+    --primary-foreground: 224 71% 4%;
     --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217 33% 17%;
@@ -60,7 +60,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 217 33% 17%;
     --input: 217 33% 17%;
-    --ring: 217 91% 60%;
+    --ring: 180 95% 50%;
     
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
@@ -70,12 +70,12 @@
 
     --sidebar-background: 222 47% 11%;
     --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 217 91% 60%;
-    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-primary: 180 95% 50%;
+    --sidebar-primary-foreground: 224 71% 4%;
     --sidebar-accent: 217 33% 17%;
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 217 33% 17%;
-    --sidebar-ring: 217 91% 60%;
+    --sidebar-ring: 180 95% 50%;
   }
 }
 
@@ -85,5 +85,10 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  section {
+    @apply py-20 md:py-32;
+    @apply animate-in fade-in slide-in-from-bottom-8 duration-700 ease-in-out;
   }
 }

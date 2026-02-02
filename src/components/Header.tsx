@@ -7,8 +7,6 @@ import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
-  SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
 
@@ -23,14 +21,20 @@ const navLinks = [
 export default function Header() {
   const [isSheetOpen, setSheetOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-screen-2xl items-center">
+    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'border-b border-white/10 bg-background/80 backdrop-blur-lg' : 'bg-transparent'}`}>
+      <div className="container flex h-20 items-center">
         <div className="mr-4 flex items-center">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <Code2 className="h-6 w-6 text-primary" />
@@ -41,7 +45,7 @@ export default function Header() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="font-medium text-foreground/60 transition-colors hover:text-foreground/80"
+                className="font-medium text-foreground/60 transition-colors hover:text-primary"
               >
                 {link.name}
               </Link>
@@ -50,22 +54,18 @@ export default function Header() {
         </div>
 
         <div className="flex flex-1 items-center justify-end space-x-2">
-          <Button asChild className="hidden md:inline-flex rounded-full">
+          <Button asChild className="hidden md:inline-flex rounded-full font-bold">
             <Link href="/#contact">Let's Talk</Link>
           </Button>
           {isMounted && (
             <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
               <SheetTrigger asChild>
-                <Button variant="outline" size="icon" className="md:hidden">
-                  <Menu className="h-5 w-5" />
+                <Button variant="ghost" size="icon" className="md:hidden hover:bg-primary/10">
+                  <Menu className="h-5 w-5 text-primary" />
                   <span className="sr-only">Open Menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right">
-                <SheetTitle className="sr-only">Menu</SheetTitle>
-                <SheetDescription className="sr-only">
-                  A list of links to navigate the site.
-                </SheetDescription>
+              <SheetContent side="right" className="bg-background/90 backdrop-blur-xl">
                 <Link
                   href="/"
                   className="flex items-center"
@@ -80,7 +80,7 @@ export default function Header() {
                       key={link.name}
                       href={link.href}
                       onClick={() => setSheetOpen(false)}
-                      className="rounded-md p-2 font-medium hover:bg-accent"
+                      className="rounded-md p-2 text-lg font-medium hover:bg-accent hover:text-primary"
                     >
                       {link.name}
                     </Link>
