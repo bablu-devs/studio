@@ -21,7 +21,7 @@ export default function ContactInfo() {
               </div>
               <div>
                 <h3 className="font-headline text-2xl font-bold">Phone</h3>
-                <a href="tel:+916206168057" className="text-base text-foreground/80 transition-colors hover:text-primary">
+                <a href="tel:+916206168057" className="text-sm text-foreground/80 transition-colors hover:text-primary">
                   +91 6206168057
                 </a>
               </div>
@@ -32,7 +32,7 @@ export default function ContactInfo() {
               </div>
               <div>
                 <h3 className="font-headline text-2xl font-bold">Email</h3>
-                <a href="mailto:bablubabu564@gmail.com" className="text-base text-foreground/80 transition-colors hover:text-primary">
+                <a href="mailto:bablubabu564@gmail.com" className="text-sm text-foreground/80 transition-colors hover:text-primary">
                   bablubabu564@gmail.com
                 </a>
               </div>
