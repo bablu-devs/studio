@@ -1,33 +1,49 @@
-const Star = ({ top, left, duration, size }) => {
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+
+const Star = ({ top, left, size }) => {
   const style = {
     top: `${top}%`,
     left: `${left}%`,
     width: `${size}px`,
     height: `${size}px`,
-    animationDuration: `${duration}s`,
   };
-  return <div className="absolute rounded-full bg-white/80 animate-star-field" style={style}></div>;
+  return <div className="absolute rounded-full bg-white/80" style={style}></div>;
 };
 
 const Starfield = () => {
-  const stars = (count: number, duration: number, size: number) => {
-    return Array.from({ length: count }).map((_, i) => {
-      const top = Math.random() * 200; // Start off screen
-      const left = Math.random() * 100;
-      return <Star key={`star-${i}`} top={top} left={left} duration={duration} size={size} />;
-    });
-  };
+  const [stars, setStars] = useState<React.ReactNode[]>([]);
+  const ref = useRef<HTMLDivElement>(null);
+
+  // Generate stars on client-side only to prevent hydration mismatch
+  useEffect(() => {
+    const starLayers = [
+      ...Array.from({ length: 60 }).map((_, i) => ({ size: 1, top: Math.random() * 100, left: Math.random() * 100, key: `s1-${i}` })),
+      ...Array.from({ length: 30 }).map((_, i) => ({ size: 2, top: Math.random() * 100, left: Math.random() * 100, key: `s2-${i}` })),
+      ...Array.from({ length: 10 }).map((_, i) => ({ size: 3, top: Math.random() * 100, left: Math.random() * 100, key: `s3-${i}` })),
+    ];
+    setStars(starLayers.map(s => <Star key={s.key} size={s.size} top={s.top} left={s.left} />));
+  }, []);
+
+  // Handle parallax scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (ref.current) {
+        // The value '0.3' controls the speed of the parallax effect.
+        ref.current.style.transform = `translateY(-${window.scrollY * 0.3}px)`;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <div className="fixed inset-0 z-[-10] overflow-hidden">
-      <div className="absolute inset-0 opacity-40">
-        {stars(50, 100, 1)}
-      </div>
-      <div className="absolute inset-0 opacity-60">
-        {stars(30, 150, 2)}
-      </div>
-       <div className="absolute inset-0 opacity-80">
-        {stars(10, 200, 3)}
+    <div ref={ref} className="fixed inset-y-0 left-0 z-[-10] h-full w-full">
+      {/* We make the star container larger than the viewport so stars don't disappear on scroll */}
+      <div className="absolute -inset-y-1/4 left-0 h-[150%] w-full">
+         {stars}
       </div>
     </div>
   );
