@@ -43,7 +43,7 @@ const Starfield = () => {
       ...Array.from({ length: 30 }).map((_, i) => createStar(i, 2)),
       ...Array.from({ length: 10 }).map((_, i) => createStar(i, 3)),
     ];
-    setStars(starLayers.map(s => <Star {...s} />));
+    setStars(starLayers.map(({ key, ...rest }) => <Star key={key} {...rest} />));
   }, []);
 
   // Handle parallax scroll
