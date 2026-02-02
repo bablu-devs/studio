@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Mail, Phone, User, MessageSquare, Send } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 import { Button } from '@/components/ui/button';
@@ -100,71 +100,53 @@ export default function Contact() {
           </p>
         </div>
         <Card className="mx-auto max-w-4xl border-white/10 bg-card/80 backdrop-blur-sm">
-          <CardContent className="p-0">
-            <div className="grid md:grid-cols-2">
-              <div className="space-y-8 bg-black/30 p-8 text-foreground md:rounded-l-lg">
-                <h3 className="font-headline text-3xl">Contact Information</h3>
-                <p className="text-foreground/70">Fill up the form and I will get back to you within 24 hours.</p>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-4 transition-colors hover:text-primary">
-                    <Phone className="h-5 w-5" />
-                    <a href="tel:+916206168057">+91 6206168057</a>
-                  </div>
-                  <div className="flex items-center gap-4 transition-colors hover:text-primary">
-                    <Mail className="h-5 w-5" />
-                    <a href="mailto:bablubabu564@gmail.com">bablubabu564@gmail.com</a>
-                  </div>
-                </div>
-              </div>
-              <div className="p-8">
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="font-semibold">Your Name</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Amit Kumar" {...field} className="bg-input/50 focus:bg-input" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="font-semibold">Email Address</FormLabel>
-                          <FormControl>
-                            <Input placeholder="amit.kumar@example.com" {...field} className="bg-input/50 focus:bg-input" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="message"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="font-semibold">Your Message</FormLabel>
-                          <FormControl>
-                            <Textarea placeholder="Tell me about your project..." {...field} className="min-h-[120px] bg-input/50 focus:bg-input" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Button type="submit" className="w-full font-bold bg-gradient-to-r from-yellow-400 to-orange-500 text-primary-foreground transition-opacity hover:opacity-90" size="lg" disabled={form.formState.isSubmitting}>
-                      {form.formState.isSubmitting ? 'Sending...' : <>Send Message <Send className="ml-2 h-4 w-4" /></>}
-                    </Button>
-                  </form>
-                </Form>
-              </div>
-            </div>
+          <CardContent className="p-8">
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-semibold">Your Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Amit Kumar" {...field} className="bg-input/50 focus:bg-input" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-semibold">Email Address</FormLabel>
+                      <FormControl>
+                        <Input placeholder="amit.kumar@example.com" {...field} className="bg-input/50 focus:bg-input" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-semibold">Your Message</FormLabel>
+                      <FormControl>
+                        <Textarea placeholder="Tell me about your project..." {...field} className="min-h-[120px] bg-input/50 focus:bg-input" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" className="w-full font-bold bg-gradient-to-r from-yellow-400 to-orange-500 text-primary-foreground transition-opacity hover:opacity-90" size="lg" disabled={form.formState.isSubmitting}>
+                  {form.formState.isSubmitting ? 'Sending...' : <>Send Message <Send className="ml-2 h-4 w-4" /></>}
+                </Button>
+              </form>
+            </Form>
           </CardContent>
         </Card>
       </div>
