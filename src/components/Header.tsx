@@ -7,6 +7,9 @@ import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
 
@@ -66,6 +69,12 @@ export default function Header() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="bg-background/90 backdrop-blur-xl">
+                <SheetHeader>
+                  <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
+                  <SheetDescription className="sr-only">
+                    A list of navigation links for the site.
+                  </SheetDescription>
+                </SheetHeader>
                 <Link
                   href="/"
                   className="flex items-center"
