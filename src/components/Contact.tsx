@@ -92,7 +92,7 @@ export default function Contact() {
     <section id="contact" className="bg-transparent">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mb-16 text-center">
-          <h2 className="font-headline text-4xl font-extrabold uppercase tracking-wider md:text-5xl">
+          <h2 className="font-headline text-5xl tracking-widest md:text-6xl">
             Get In Touch
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-lg text-foreground/70 md:text-xl">
@@ -103,7 +103,7 @@ export default function Contact() {
           <CardContent className="p-0">
             <div className="grid md:grid-cols-2">
               <div className="space-y-8 bg-black/30 p-8 text-foreground md:rounded-l-lg">
-                <h3 className="font-headline text-3xl font-bold">Contact Information</h3>
+                <h3 className="font-headline text-3xl">Contact Information</h3>
                 <p className="text-foreground/70">Fill up the form and I will get back to you within 24 hours.</p>
                 <div className="space-y-4">
                   <div className="flex items-center gap-4 transition-colors hover:text-primary">
@@ -158,7 +158,7 @@ export default function Contact() {
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" className="w-full font-bold" size="lg" disabled={form.formState.isSubmitting}>
+                    <Button type="submit" className="w-full font-bold bg-gradient-to-r from-primary to-cyan-400 text-primary-foreground transition-opacity hover:opacity-90" size="lg" disabled={form.formState.isSubmitting}>
                       {form.formState.isSubmitting ? 'Sending...' : <>Send Message <Send className="ml-2 h-4 w-4" /></>}
                     </Button>
                   </form>

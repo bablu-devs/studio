@@ -8,12 +8,12 @@ export default function TermsOfServicePage() {
       <main className="flex-grow">
         <section className="container mx-auto px-4 md:px-6">
           <div className="prose prose-invert max-w-4xl mx-auto">
-            <h1 className="font-headline text-5xl font-extrabold uppercase tracking-wider sm:text-6xl text-primary">Terms of Service</h1>
+            <h1 className="font-headline text-6xl tracking-widest sm:text-7xl text-primary">Terms of Service</h1>
             <p className="mt-6 text-lg leading-8 text-foreground/80">
               By accessing this website, you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site.
             </p>
 
-            <h2 className="mt-12 font-headline text-3xl font-bold uppercase tracking-wider text-primary">1. Use License</h2>
+            <h2 className="mt-12 font-headline text-4xl tracking-widest text-primary">1. Use License</h2>
             <p className="mt-4 text-lg leading-8 text-foreground/80">
               Permission is granted to temporarily download one copy of the materials (information or software) on Bablu Devs' website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
             </p>
@@ -28,17 +28,17 @@ export default function TermsOfServicePage() {
               This license shall automatically terminate if you violate any of these restrictions and may be terminated by Bablu Devs at any time.
             </p>
 
-            <h2 className="mt-12 font-headline text-3xl font-bold uppercase tracking-wider text-primary">2. Disclaimer</h2>
+            <h2 className="mt-12 font-headline text-4xl tracking-widest text-primary">2. Disclaimer</h2>
             <p className="mt-4 text-lg leading-8 text-foreground/80">
               The materials on Bablu Devs' website are provided on an 'as is' basis. Bablu Devs makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
             </p>
 
-            <h2 className="mt-12 font-headline text-3xl font-bold uppercase tracking-wider text-primary">3. Limitations</h2>
+            <h2 className="mt-12 font-headline text-4xl tracking-widest text-primary">3. Limitations</h2>
             <p className="mt-4 text-lg leading-8 text-foreground/80">
               In no event shall Bablu Devs or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Bablu Devs' website, even if Bablu Devs or a Bablu Devs authorized representative has been notified orally or in writing of the possibility of such damage.
             </p>
 
-            <h2 className="mt-12 font-headline text-3xl font-bold uppercase tracking-wider text-primary">4. Governing Law</h2>
+            <h2 className="mt-12 font-headline text-4xl tracking-widest text-primary">4. Governing Law</h2>
             <p className="mt-4 text-lg leading-8 text-foreground/80">
               These terms and conditions are governed by and construed in accordance with the laws of India and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.
             </p>

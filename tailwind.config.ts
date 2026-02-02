@@ -11,7 +11,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['Poppins', 'sans-serif'],
-        headline: ['Anybody', 'sans-serif'],
+        headline: ['VT323', 'monospace'],
       },
       colors: {
         background: 'hsl(var(--background))',

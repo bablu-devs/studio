@@ -29,7 +29,7 @@ export default function Clients() {
     <section id="clients">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mb-16 text-center">
-          <h2 className="font-headline text-4xl font-extrabold uppercase tracking-wider md:text-5xl">
+          <h2 className="font-headline text-5xl tracking-widest md:text-6xl">
             Who I Build For
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-lg text-foreground/70 md:text-xl">

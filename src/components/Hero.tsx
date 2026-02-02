@@ -31,7 +31,7 @@ export default function Hero() {
         </div>
 
         <div className="space-y-4">
-          <h1 className="font-headline text-5xl font-extrabold uppercase tracking-wider sm:text-6xl md:text-7xl lg:text-8xl">
+          <h1 className="font-headline text-6xl tracking-widest sm:text-7xl md:text-8xl lg:text-9xl">
             Bablu Devs
           </h1>
           <h2 className="text-xl font-medium text-primary md:text-2xl">
@@ -42,7 +42,7 @@ export default function Hero() {
           </p>
         </div>
         <div className="mt-4 flex flex-col items-center gap-4 sm:flex-row">
-          <Button asChild size="lg" className="rounded-full font-bold">
+          <Button asChild size="lg" className="rounded-full font-bold bg-gradient-to-r from-primary to-cyan-400 text-primary-foreground transition-opacity hover:opacity-90">
             <Link href="#contact">Get In Touch</Link>
           </Button>
           <Button asChild variant="outline" size="lg" className="rounded-full border-white/20 bg-transparent text-foreground/80 hover:bg-white/10 hover:text-white">
