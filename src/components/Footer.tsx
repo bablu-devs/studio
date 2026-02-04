@@ -3,7 +3,7 @@ import { Github, Instagram, Facebook, Twitter, CodeXml } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Footer() {
-  const year = new Date().getFullYear();
+  const year = 2026;
 
   return (
     <footer className="relative z-10 border-t border-white/10 bg-background">
@@ -43,17 +43,17 @@ export default function Footer() {
                 </Link>
               </Button>
               <Button asChild variant="ghost" size="icon" className="text-foreground/60 transition-colors hover:text-primary hover:bg-primary/10">
-                <Link href="https://instagram.com" target="_blank" aria-label="Instagram">
+                <Link href="https://www.instagram.com/code.x.bablu?igsh=MXIxOXJnNTZ4N3M1ag==" target="_blank" aria-label="Instagram">
                   <Instagram className="h-5 w-5" />
                 </Link>
               </Button>
               <Button asChild variant="ghost" size="icon" className="text-foreground/60 transition-colors hover:text-primary hover:bg-primary/10">
-                <Link href="https://x.com" target="_blank" aria-label="X / Twitter">
+                <Link href="https://x.com/bablu_56" target="_blank" aria-label="X / Twitter">
                   <Twitter className="h-5 w-5" />
                 </Link>
               </Button>
               <Button asChild variant="ghost" size="icon" className="text-foreground/60 transition-colors hover:text-primary hover:bg-primary/10">
-                <Link href="https://facebook.com" target="_blank" aria-label="Facebook">
+                <Link href="https://www.facebook.com/profile.php?id=100042030234004" target="_blank" aria-label="Facebook">
                   <Facebook className="h-5 w-5" />
                 </Link>
               </Button>
