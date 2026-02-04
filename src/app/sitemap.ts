@@ -1,8 +1,7 @@
 import { MetadataRoute } from 'next'
  
 export default function sitemap(): MetadataRoute.Sitemap {
-  // IMPORTANT: Replace this with your actual domain name
-  const baseUrl = 'https://your-domain.com';
+  const baseUrl = 'https://babludevworks.vercel.app';
   
   return [
     {
