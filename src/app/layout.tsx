@@ -6,7 +6,8 @@ import Starfield from '@/components/Starfield';
 
 export const metadata: Metadata = {
   title: 'Bablu Devs | Flutter Web Developer',
-  description: 'Flutter Web Developer | Vibe Coder. Building modern, secure & scalable Flutter websites.',
+  description: 'Bablu Devs is a professional Flutter web development service offering modern, responsive, and scalable websites for schools, coaching centers, small businesses, and startups across India.',
+  keywords: ['Bablu Devs', 'Flutter web developer', 'Flutter website development', 'web developer India', 'coaching website development', 'school website developer', 'startup web development', 'responsive Flutter websites', 'modern web design', 'small business website', 'Flutter web services'],
 };
 
 export default function RootLayout({
@@ -17,6 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="msapplication-TileColor" content="#0a0a0a" />
+        <meta name="theme-color" content="#ffc800" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=VT323&display=swap" rel="stylesheet" />
